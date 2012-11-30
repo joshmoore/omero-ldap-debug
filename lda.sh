@@ -16,27 +16,27 @@ cat > ldap.xml <<EOF
       <constructor-arg index="0" value="true"/>
       <constructor-arg index="1" value="default"/>
       <constructor-arg index="2" value="(objectClass=person)"/>
-      <constructor-arg index="3" value="(objectClass=groupOfNames)"/>
+      <constructor-arg index="3" value="(objectClass=group)"/>
       <constructor-arg index="4" value="omeName=cn,firstName=givenName,lastName=sn,email=mail"/>
       <constructor-arg index="5" value="name=cn"/>
     </bean>
 
     <bean id="defaultContextSource"
         class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <constructor-arg value="ldap://localhost:1389"/>
-        <property name="userDn" value=""/>
-        <property name="password" value=""/>
-        <property name="base" value="ou=lifesci,o=dundee"/>
+        <constructor-arg value="ldaps://bioch-ad3.bioch.ox.ac.uk:636"/>
+        <property name="userDn" value="cn=omerolookup,ou=Service Accounts,dc=bioch,dc=ox,dc=ac,dc=uk"/>
+        <property name="password" value="$1"/>
+        <property name="base" value="dc=bioch,dc=ox,dc=ac,dc=uk"/>
         <property name="dirObjectFactory"
             value="org.springframework.ldap.core.support.DefaultDirObjectFactory" />
     </bean>
 
     <bean id="keystore" class="ome.security.KeyAndTrustStoreConfiguration" lazy-init="false">
       <description>Sets the keystore and truststore System properties on start-up</description>
-      <property name="keyStore" value="certs"/>
-      <property name="keyStorePassword" value=""/>
-      <property name="trustStore" value="certs"/>
-      <property name="trustStorePassword" value=""/>
+      <property name="keyStore" value="/home/dpwrussell/keys/keystore-empty.jks"/>
+      <property name="keyStorePassword" value="changeit"/>
+      <property name="trustStore" value="/home/dpwrussell/keys/keystore.jks"/>
+      <property name="trustStorePassword" value="changeit"/>
     </bean>
 
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
@@ -76,7 +76,7 @@ public class ldap {
         LdapConfig config = ctx.getBean(LdapConfig.class);
         LdapTemplate template = ctx.getBean(LdapTemplate.class);
 
-        String USER = "jmoore";
+        String USER = "omerotest";
         System.out.println("Looking for user: " + USER);
         List<String> results = (List<String>)
         template.search("", config.usernameFilter(USER).encode(),
