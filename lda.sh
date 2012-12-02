@@ -29,6 +29,14 @@ cat > ldap.xml <<EOF
         <property name="base" value="dc=bioch,dc=ox,dc=ac,dc=uk"/>
         <property name="dirObjectFactory"
             value="org.springframework.ldap.core.support.DefaultDirObjectFactory" />
+        <!-- http://forum.springsource.org/showthread.php?58963-Setting-java-naming-referral-using-namespace-configuration -->
+        <property name="baseEnvironmentProperties">
+            <map>
+                <entry key="java.naming.referral">
+                    <value>follow</value>
+                </entry>
+            </map>
+        </property>
     </bean>
 
     <bean id="keystore" class="ome.security.KeyAndTrustStoreConfiguration" lazy-init="false">
