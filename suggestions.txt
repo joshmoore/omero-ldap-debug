@@ -1,0 +1,5 @@
+https://wiki.shibboleth.net/confluence/display/SHIB2/LdapServerIssues#LdapServerIssues-Referrals
+
+Reconfigure the data connector to instead use the AD Global Catalog (GC) as the source of attributes. This may be accomplished by using port 3268/3269 for the LDAP query rather than 389/636. This avoids the referral problem by ensuring that no referrals will be returned. However, this carries with it a couple of issues:
+Not all AD domain controllers hold a copy of the GC.
+The data available in the GC is not the full set of user attribute data, but rather only the partial attribute set that AD is configured to replicate to the GC. Current and future user attribute needs should be evaluated against the presence of the needed data in AD, and the willingness to configure the GC with additional attributes as needed. This is especially true if uncommon attributes or custom LDAP schema are to be used.
