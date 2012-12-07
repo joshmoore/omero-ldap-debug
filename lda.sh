@@ -26,7 +26,7 @@ cat > ldap.xml <<EOF
         <constructor-arg value="ldaps://bioch-ad3.bioch.ox.ac.uk:636"/>
         <property name="userDn" value="cn=omerolookup,ou=Service Accounts,dc=bioch,dc=ox,dc=ac,dc=uk"/>
         <property name="password" value="$1"/>
-        <property name="base" value="ou=Users - Lab,dc=bioch,dc=ox,dc=ac,dc=uk"/>
+        <property name="base" value="dc=bioch,dc=ox,dc=ac,dc=uk"/>
         <property name="dirObjectFactory"
             value="org.springframework.ldap.core.support.DefaultDirObjectFactory" />
     </bean>
