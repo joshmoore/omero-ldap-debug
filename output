@@ -1,127 +1,80 @@
 Note: ldap.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-2012-12-07 15:01:15,502 0          [      main] INFO   .support.FileSystemXmlApplicationContext  - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@10f946f9: startup date [Fri Dec 07 15:01:15 GMT 2012]; root of context hierarchy
-2012-12-07 15:01:15,593 91         [      main] INFO   eans.factory.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [ldap.xml]
-2012-12-07 15:01:15,600 98         [      main] DEBUG  .beans.factory.xml.DefaultDocumentLoader  - Using JAXP provider [org.apache.xerces.jaxp.DocumentBuilderFactoryImpl]
-2012-12-07 15:01:15,855 353        [      main] TRACE  ework.beans.factory.xml.BeansDtdResolver  - Trying to resolve XML entity with public ID [-//SPRING//DTD BEAN//EN] and system ID [http://www.springframework.org/dtd/spring-beans.dtd]
-2012-12-07 15:01:15,856 354        [      main] TRACE  ework.beans.factory.xml.BeansDtdResolver  - Trying to locate [spring-beans.dtd] in Spring jar
-2012-12-07 15:01:15,857 355        [      main] DEBUG  ework.beans.factory.xml.BeansDtdResolver  - Found beans DTD [http://www.springframework.org/dtd/spring-beans.dtd] in classpath: spring-beans.dtd
-2012-12-07 15:01:15,886 384        [      main] DEBUG  .xml.DefaultBeanDefinitionDocumentReader  - Loading bean definitions
-2012-12-07 15:01:15,922 420        [      main] DEBUG  eans.factory.xml.XmlBeanDefinitionReader  - Loaded 4 bean definitions from location pattern [classpath:ldap.xml]
-2012-12-07 15:01:15,922 420        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Bean factory for org.springframework.context.support.FileSystemXmlApplicationContext@10f946f9: org.springframework.beans.factory.support.DefaultListableBeanFactory@e9f0070: defining beans [ldapConfig,defaultContextSource,keystore,ldapTemplate]; root of factory hierarchy
-2012-12-07 15:01:16,081 579        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@78be094b]
-2012-12-07 15:01:16,084 582        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@36d5e82c]
-2012-12-07 15:01:16,085 583        [      main] INFO   ctory.support.DefaultListableBeanFactory  - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@e9f0070: defining beans [ldapConfig,defaultContextSource,keystore,ldapTemplate]; root of factory hierarchy
-2012-12-07 15:01:16,086 584        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'ldapConfig'
-2012-12-07 15:01:16,086 584        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'ldapConfig'
-2012-12-07 15:01:16,186 684        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@11c4c852]
-2012-12-07 15:01:16,187 685        [      main] TRACE  ctory.support.DefaultListableBeanFactory  - Ignoring constructor [public ome.security.auth.LdapConfig(boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean,java.lang.String)] of bean 'ldapConfig': org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ldapConfig' defined in class path resource [ldap.xml]: Unsatisfied dependency expressed through constructor argument with index 6 of type [boolean]: Ambiguous constructor argument types - did you specify the correct bean references as constructor arguments?
-2012-12-07 15:01:16,187 685        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@11c4c852]
-2012-12-07 15:01:16,188 686        [      main] TRACE  ctory.support.DefaultListableBeanFactory  - Ignoring constructor [public ome.security.auth.LdapConfig(boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean)] of bean 'ldapConfig': org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ldapConfig' defined in class path resource [ldap.xml]: Unsatisfied dependency expressed through constructor argument with index 6 of type [boolean]: Ambiguous constructor argument types - did you specify the correct bean references as constructor arguments?
-2012-12-07 15:01:16,188 686        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@11c4c852]
-2012-12-07 15:01:16,191 689        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'ldapConfig' to allow for resolving potential circular references
-2012-12-07 15:01:16,191 689        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'ldapConfig'
-2012-12-07 15:01:16,192 690        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'defaultContextSource'
-2012-12-07 15:01:16,192 690        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'defaultContextSource'
-2012-12-07 15:01:16,201 699        [      main] INFO   .ldap.DefaultSpringSecurityContextSource  -  URL 'ldaps://bioch-ad3.bioch.ox.ac.uk:636', root DN is ''
-2012-12-07 15:01:16,206 704        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'defaultContextSource' to allow for resolving potential circular references
-2012-12-07 15:01:16,209 707        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Getting BeanInfo for class [org.springframework.security.ldap.DefaultSpringSecurityContextSource]
-2012-12-07 15:01:16,215 713        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Caching PropertyDescriptors for class [org.springframework.security.ldap.DefaultSpringSecurityContextSource]
-2012-12-07 15:01:16,215 713        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'anonymousReadOnly' of type [boolean]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'authenticationSource' of type [org.springframework.ldap.core.AuthenticationSource]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'authenticationStrategy' of type [org.springframework.ldap.core.support.DirContextAuthenticationStrategy]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'base' of type [java.lang.String]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseEnvironmentProperties' of type [java.util.Map]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseLdapPath' of type [org.springframework.ldap.core.DistinguishedName]
-2012-12-07 15:01:16,217 715        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseLdapPathAsString' of type [java.lang.String]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'cacheEnvironmentProperties' of type [boolean]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'class' of type [java.lang.Class]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'contextFactory' of type [java.lang.Class]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'dirObjectFactory' of type [java.lang.Class]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'password' of type [java.lang.String]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'pooled' of type [boolean]
-2012-12-07 15:01:16,218 716        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'readOnlyContext' of type [javax.naming.directory.DirContext]
-2012-12-07 15:01:16,219 717        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'readWriteContext' of type [javax.naming.directory.DirContext]
-2012-12-07 15:01:16,219 717        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'referral' of type [java.lang.String]
-2012-12-07 15:01:16,219 717        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'url' of type [java.lang.String]
-2012-12-07 15:01:16,219 717        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'urls' of type [[Ljava.lang.String;]
-2012-12-07 15:01:16,219 717        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'userDn' of type [java.lang.String]
-2012-12-07 15:01:16,221 719        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [class java.lang.Class] using property editor [org.springframework.beans.propertyeditors.ClassEditor@5519bf16]
-2012-12-07 15:01:16,233 731        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'defaultContextSource'
-2012-12-07 15:01:16,237 735        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - AuthenticationSource not set - using default implementation
-2012-12-07 15:01:16,238 736        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Using LDAP pooling.
-2012-12-07 15:01:16,239 737        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Trying provider Urls: ldaps://bioch-ad3.bioch.ox.ac.uk:636/dc=bioch,dc=ox,dc=ac,dc=uk
-2012-12-07 15:01:16,239 737        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'defaultContextSource'
-2012-12-07 15:01:16,239 737        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'keystore'
-2012-12-07 15:01:16,239 737        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'keystore'
-2012-12-07 15:01:16,240 738        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'keystore' to allow for resolving potential circular references
-2012-12-07 15:01:16,240 738        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Getting BeanInfo for class [ome.security.KeyAndTrustStoreConfiguration]
-2012-12-07 15:01:16,242 740        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Caching PropertyDescriptors for class [ome.security.KeyAndTrustStoreConfiguration]
-2012-12-07 15:01:16,243 741        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'class' of type [java.lang.Class]
-2012-12-07 15:01:16,243 741        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'keyStore' of type [java.lang.String]
-2012-12-07 15:01:16,243 741        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'keyStorePassword' of type [java.lang.String]
-2012-12-07 15:01:16,243 741        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'trustStore' of type [java.lang.String]
-2012-12-07 15:01:16,243 741        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'trustStorePassword' of type [java.lang.String]
-2012-12-07 15:01:16,244 742        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'keystore'
-2012-12-07 15:01:16,244 742        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'keystore'
-2012-12-07 15:01:16,244 742        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'ldapTemplate'
-2012-12-07 15:01:16,244 742        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'ldapTemplate'
-2012-12-07 15:01:16,244 742        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'defaultContextSource'
-2012-12-07 15:01:16,267 765        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'ldapTemplate' to allow for resolving potential circular references
-2012-12-07 15:01:16,267 765        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'ldapTemplate'
-2012-12-07 15:01:16,268 766        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'ldapTemplate'
-2012-12-07 15:01:16,269 767        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@484ac01]
-2012-12-07 15:01:16,269 767        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'lifecycleProcessor'
-2012-12-07 15:01:16,270 768        [      main] TRACE  .support.FileSystemXmlApplicationContext  - Publishing event in org.springframework.context.support.FileSystemXmlApplicationContext@10f946f9: org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.context.support.FileSystemXmlApplicationContext@10f946f9: startup date [Fri Dec 07 15:01:15 GMT 2012]; root of context hierarchy]
-2012-12-07 15:01:16,271 769        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'ldapConfig'
-2012-12-07 15:01:16,271 769        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'ldapTemplate'
+2012-12-07 15:06:21,151 0          [      main] INFO   .support.FileSystemXmlApplicationContext  - Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@5da28e23: startup date [Fri Dec 07 15:06:21 GMT 2012]; root of context hierarchy
+2012-12-07 15:06:21,259 108        [      main] INFO   eans.factory.xml.XmlBeanDefinitionReader  - Loading XML bean definitions from class path resource [ldap.xml]
+2012-12-07 15:06:21,266 115        [      main] DEBUG  .beans.factory.xml.DefaultDocumentLoader  - Using JAXP provider [org.apache.xerces.jaxp.DocumentBuilderFactoryImpl]
+2012-12-07 15:06:21,578 427        [      main] TRACE  ework.beans.factory.xml.BeansDtdResolver  - Trying to resolve XML entity with public ID [-//SPRING//DTD BEAN//EN] and system ID [http://www.springframework.org/dtd/spring-beans.dtd]
+2012-12-07 15:06:21,578 427        [      main] TRACE  ework.beans.factory.xml.BeansDtdResolver  - Trying to locate [spring-beans.dtd] in Spring jar
+2012-12-07 15:06:21,579 428        [      main] DEBUG  ework.beans.factory.xml.BeansDtdResolver  - Found beans DTD [http://www.springframework.org/dtd/spring-beans.dtd] in classpath: spring-beans.dtd
+2012-12-07 15:06:21,634 483        [      main] DEBUG  .xml.DefaultBeanDefinitionDocumentReader  - Loading bean definitions
+2012-12-07 15:06:21,675 524        [      main] DEBUG  eans.factory.xml.XmlBeanDefinitionReader  - Loaded 4 bean definitions from location pattern [classpath:ldap.xml]
+2012-12-07 15:06:21,676 525        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Bean factory for org.springframework.context.support.FileSystemXmlApplicationContext@5da28e23: org.springframework.beans.factory.support.DefaultListableBeanFactory@68d5c08f: defining beans [ldapConfig,defaultContextSource,keystore,ldapTemplate]; root of factory hierarchy
+2012-12-07 15:06:21,824 673        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@45458db]
+2012-12-07 15:06:21,827 676        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@157dbcd4]
+2012-12-07 15:06:21,828 677        [      main] INFO   ctory.support.DefaultListableBeanFactory  - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@68d5c08f: defining beans [ldapConfig,defaultContextSource,keystore,ldapTemplate]; root of factory hierarchy
+2012-12-07 15:06:21,829 678        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'ldapConfig'
+2012-12-07 15:06:21,830 679        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'ldapConfig'
+2012-12-07 15:06:21,932 781        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@e3b889b]
+2012-12-07 15:06:21,934 783        [      main] TRACE  ctory.support.DefaultListableBeanFactory  - Ignoring constructor [public ome.security.auth.LdapConfig(boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean,java.lang.String)] of bean 'ldapConfig': org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ldapConfig' defined in class path resource [ldap.xml]: Unsatisfied dependency expressed through constructor argument with index 6 of type [boolean]: Ambiguous constructor argument types - did you specify the correct bean references as constructor arguments?
+2012-12-07 15:06:21,934 783        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@e3b889b]
+2012-12-07 15:06:21,935 784        [      main] TRACE  ctory.support.DefaultListableBeanFactory  - Ignoring constructor [public ome.security.auth.LdapConfig(boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,boolean)] of bean 'ldapConfig': org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'ldapConfig' defined in class path resource [ldap.xml]: Unsatisfied dependency expressed through constructor argument with index 6 of type [boolean]: Ambiguous constructor argument types - did you specify the correct bean references as constructor arguments?
+2012-12-07 15:06:21,935 784        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [boolean] using property editor [org.springframework.beans.propertyeditors.CustomBooleanEditor@e3b889b]
+2012-12-07 15:06:21,938 787        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'ldapConfig' to allow for resolving potential circular references
+2012-12-07 15:06:21,939 788        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'ldapConfig'
+2012-12-07 15:06:21,939 788        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'defaultContextSource'
+2012-12-07 15:06:21,940 789        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'defaultContextSource'
+2012-12-07 15:06:21,949 798        [      main] INFO   .ldap.DefaultSpringSecurityContextSource  -  URL 'ldaps://bioch-ad3.bioch.ox.ac.uk:3269', root DN is ''
+2012-12-07 15:06:21,955 804        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'defaultContextSource' to allow for resolving potential circular references
+2012-12-07 15:06:21,957 806        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Getting BeanInfo for class [org.springframework.security.ldap.DefaultSpringSecurityContextSource]
+2012-12-07 15:06:21,964 813        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Caching PropertyDescriptors for class [org.springframework.security.ldap.DefaultSpringSecurityContextSource]
+2012-12-07 15:06:21,965 814        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'anonymousReadOnly' of type [boolean]
+2012-12-07 15:06:21,966 815        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'authenticationSource' of type [org.springframework.ldap.core.AuthenticationSource]
+2012-12-07 15:06:21,966 815        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'authenticationStrategy' of type [org.springframework.ldap.core.support.DirContextAuthenticationStrategy]
+2012-12-07 15:06:21,966 815        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'base' of type [java.lang.String]
+2012-12-07 15:06:21,967 816        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseEnvironmentProperties' of type [java.util.Map]
+2012-12-07 15:06:21,967 816        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseLdapPath' of type [org.springframework.ldap.core.DistinguishedName]
+2012-12-07 15:06:21,967 816        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'baseLdapPathAsString' of type [java.lang.String]
+2012-12-07 15:06:21,968 817        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'cacheEnvironmentProperties' of type [boolean]
+2012-12-07 15:06:21,968 817        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'class' of type [java.lang.Class]
+2012-12-07 15:06:21,968 817        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'contextFactory' of type [java.lang.Class]
+2012-12-07 15:06:21,968 817        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'dirObjectFactory' of type [java.lang.Class]
+2012-12-07 15:06:21,968 817        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'password' of type [java.lang.String]
+2012-12-07 15:06:21,969 818        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'pooled' of type [boolean]
+2012-12-07 15:06:21,969 818        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'readOnlyContext' of type [javax.naming.directory.DirContext]
+2012-12-07 15:06:21,969 818        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'readWriteContext' of type [javax.naming.directory.DirContext]
+2012-12-07 15:06:21,969 818        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'referral' of type [java.lang.String]
+2012-12-07 15:06:21,970 819        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'url' of type [java.lang.String]
+2012-12-07 15:06:21,970 819        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'urls' of type [[Ljava.lang.String;]
+2012-12-07 15:06:21,970 819        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'userDn' of type [java.lang.String]
+2012-12-07 15:06:21,972 821        [      main] TRACE  ingframework.beans.TypeConverterDelegate  - Converting String to [class java.lang.Class] using property editor [org.springframework.beans.propertyeditors.ClassEditor@d506900]
+2012-12-07 15:06:21,985 834        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'defaultContextSource'
+2012-12-07 15:06:21,989 838        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - AuthenticationSource not set - using default implementation
+2012-12-07 15:06:21,990 839        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Using LDAP pooling.
+2012-12-07 15:06:21,991 840        [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Trying provider Urls: ldaps://bioch-ad3.bioch.ox.ac.uk:3269/dc=bioch,dc=ox,dc=ac,dc=uk
+2012-12-07 15:06:21,991 840        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'defaultContextSource'
+2012-12-07 15:06:21,991 840        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'keystore'
+2012-12-07 15:06:21,992 841        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'keystore'
+2012-12-07 15:06:21,992 841        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'keystore' to allow for resolving potential circular references
+2012-12-07 15:06:21,993 842        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Getting BeanInfo for class [ome.security.KeyAndTrustStoreConfiguration]
+2012-12-07 15:06:21,996 845        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Caching PropertyDescriptors for class [ome.security.KeyAndTrustStoreConfiguration]
+2012-12-07 15:06:21,996 845        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'class' of type [java.lang.Class]
+2012-12-07 15:06:21,996 845        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'keyStore' of type [java.lang.String]
+2012-12-07 15:06:21,997 846        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'keyStorePassword' of type [java.lang.String]
+2012-12-07 15:06:21,997 846        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'trustStore' of type [java.lang.String]
+2012-12-07 15:06:21,997 846        [      main] TRACE  amework.beans.CachedIntrospectionResults  - Found bean property 'trustStorePassword' of type [java.lang.String]
+2012-12-07 15:06:21,998 847        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'keystore'
+2012-12-07 15:06:21,998 847        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'keystore'
+2012-12-07 15:06:21,998 847        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating shared instance of singleton bean 'ldapTemplate'
+2012-12-07 15:06:21,998 847        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Creating instance of bean 'ldapTemplate'
+2012-12-07 15:06:21,999 848        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'defaultContextSource'
+2012-12-07 15:06:22,022 871        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Eagerly caching bean 'ldapTemplate' to allow for resolving potential circular references
+2012-12-07 15:06:22,023 872        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Invoking afterPropertiesSet() on bean with name 'ldapTemplate'
+2012-12-07 15:06:22,023 872        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Finished creating instance of bean 'ldapTemplate'
+2012-12-07 15:06:22,024 873        [      main] DEBUG  .support.FileSystemXmlApplicationContext  - Unable to locate LifecycleProcessor with name 'lifecycleProcessor': using default [org.springframework.context.support.DefaultLifecycleProcessor@223877f8]
+2012-12-07 15:06:22,025 874        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'lifecycleProcessor'
+2012-12-07 15:06:22,026 875        [      main] TRACE  .support.FileSystemXmlApplicationContext  - Publishing event in org.springframework.context.support.FileSystemXmlApplicationContext@5da28e23: org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.context.support.FileSystemXmlApplicationContext@5da28e23: startup date [Fri Dec 07 15:06:21 GMT 2012]; root of context hierarchy]
+2012-12-07 15:06:22,027 876        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'ldapConfig'
+2012-12-07 15:06:22,027 876        [      main] DEBUG  ctory.support.DefaultListableBeanFactory  - Returning cached instance of singleton bean 'ldapTemplate'
 Looking for user: omerotest
-2012-12-07 15:01:16,673 1171       [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Got Ldap context on server 'ldaps://bioch-ad3.bioch.ox.ac.uk:636/dc=bioch,dc=ox,dc=ac,dc=uk'
+2012-12-07 15:06:22,491 1340       [      main] DEBUG  .ldap.core.support.AbstractContextSource  - Got Ldap context on server 'ldaps://bioch-ad3.bioch.ox.ac.uk:3269/dc=bioch,dc=ox,dc=ac,dc=uk'
 cn=omerotest,ou=Davis Group,ou=Users - Lab,dc=bioch,dc=ox,dc=ac,dc=uk
-Exception in thread "main" org.springframework.ldap.PartialResultException: nested exception is javax.naming.PartialResultException [Root exception is javax.naming.CommunicationException: bioch.ox.ac.uk:636 [Root exception is java.net.UnknownHostException: bioch.ox.ac.uk]]
-	at org.springframework.ldap.support.LdapUtils.convertLdapException(LdapUtils.java:203)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:315)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:259)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:606)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:524)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:473)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:493)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:513)
-	at ldap.main(ldap.java:32)
-Caused by: javax.naming.PartialResultException [Root exception is javax.naming.CommunicationException: bioch.ox.ac.uk:636 [Root exception is java.net.UnknownHostException: bioch.ox.ac.uk]]
-	at com.sun.jndi.ldap.LdapNamingEnumeration.hasMoreImpl(LdapNamingEnumeration.java:242)
-	at com.sun.jndi.ldap.LdapNamingEnumeration.hasMore(LdapNamingEnumeration.java:189)
-	at org.springframework.ldap.core.LdapTemplate.search(LdapTemplate.java:295)
-	... 7 more
-Caused by: javax.naming.CommunicationException: bioch.ox.ac.uk:636 [Root exception is java.net.UnknownHostException: bioch.ox.ac.uk]
-	at com.sun.jndi.ldap.LdapReferralContext.<init>(LdapReferralContext.java:92)
-	at com.sun.jndi.ldap.LdapReferralException.getReferralContext(LdapReferralException.java:150)
-	at com.sun.jndi.ldap.LdapNamingEnumeration.hasMoreReferrals(LdapNamingEnumeration.java:357)
-	at com.sun.jndi.ldap.LdapNamingEnumeration.hasMoreImpl(LdapNamingEnumeration.java:226)
-	... 9 more
-Caused by: java.net.UnknownHostException: bioch.ox.ac.uk
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:178)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:391)
-	at java.net.Socket.connect(Socket.java:579)
-	at sun.security.ssl.SSLSocketImpl.connect(SSLSocketImpl.java:618)
-	at sun.security.ssl.SSLSocketImpl.<init>(SSLSocketImpl.java:407)
-	at sun.security.ssl.SSLSocketFactoryImpl.createSocket(SSLSocketFactoryImpl.java:88)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:601)
-	at com.sun.jndi.ldap.Connection.createSocket(Connection.java:331)
-	at com.sun.jndi.ldap.Connection.<init>(Connection.java:201)
-	at com.sun.jndi.ldap.LdapClient.<init>(LdapClient.java:136)
-	at com.sun.jndi.ldap.LdapClient.getInstance(LdapClient.java:1600)
-	at com.sun.jndi.ldap.LdapCtx.connect(LdapCtx.java:2698)
-	at com.sun.jndi.ldap.LdapCtx.<init>(LdapCtx.java:316)
-	at com.sun.jndi.ldap.LdapCtxFactory.getUsingURL(LdapCtxFactory.java:193)
-	at com.sun.jndi.ldap.LdapCtxFactory.getLdapCtxInstance(LdapCtxFactory.java:152)
-	at com.sun.jndi.url.ldap.ldapURLContextFactory.getObjectInstance(ldapURLContextFactory.java:52)
-	at javax.naming.spi.NamingManager.getURLObject(NamingManager.java:601)
-	at javax.naming.spi.NamingManager.processURL(NamingManager.java:381)
-	at javax.naming.spi.NamingManager.processURLAddrs(NamingManager.java:361)
-	at javax.naming.spi.NamingManager.getObjectInstance(NamingManager.java:333)
-	at com.sun.jndi.ldap.LdapReferralContext.<init>(LdapReferralContext.java:111)
-	... 12 more

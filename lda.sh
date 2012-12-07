@@ -23,7 +23,7 @@ cat > ldap.xml <<EOF
 
     <bean id="defaultContextSource"
         class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <constructor-arg value="ldaps://bioch-ad3.bioch.ox.ac.uk:636"/>
+        <constructor-arg value="ldaps://bioch-ad3.bioch.ox.ac.uk:3269"/>
         <property name="userDn" value="cn=omerolookup,ou=Service Accounts,dc=bioch,dc=ox,dc=ac,dc=uk"/>
         <property name="password" value="$1"/>
         <property name="base" value="dc=bioch,dc=ox,dc=ac,dc=uk"/>
