@@ -14,9 +14,9 @@ cat > ldap.xml <<EOF
 
    <bean id="ldapConfig" class="ome.security.auth.LdapConfig">
       <constructor-arg index="0" value="true"/>
-      <constructor-arg index="1" value="default"/>
+      <constructor-arg index="1" value=":attribute:memberOf"/>
       <constructor-arg index="2" value="(objectClass=person)"/>
-      <constructor-arg index="3" value="(objectClass=group)"/>
+      <constructor-arg index="3" value="(&amp;(objectClass=group)(mail=omero.flag))"/>
       <constructor-arg index="4" value="omeName=cn,firstName=givenName,lastName=sn,email=mail"/>
       <constructor-arg index="5" value="name=cn"/>
     </bean>
@@ -66,6 +66,7 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.naming.directory.SearchControls;
 
+import ome.security.auth.GroupAttributeMapper;
 import ome.security.auth.LdapConfig;
 
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -97,6 +98,11 @@ public class ldap {
         if (results == null || results.size() == 0) {
             System.out.println("Nothing found!");
         }
+
+	String grpFilter = config.getGroupFilter().encode();
+	GroupAttributeMapper mapper = new GroupAttributeMapper(config);
+	List<String> filteredNames = (List<String>) template.search("", grpFilter, mapper);
+	System.out.println("Groups:" + filteredNames);
     }
 }
 EOF
