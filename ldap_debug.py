@@ -136,24 +136,13 @@ public class ldap {
     }
 }""")
 
-    with open("ldap.properties", "w") as f:
-        f.write("""
-log4j.rootCategory=trace, stderr
-log4j.appender.stderr=org.apache.log4j.ConsoleAppender
-log4j.appender.stderr.target=System.err
-log4j.appender.stderr.layout=org.apache.log4j.PatternLayout
-log4j.appender.stderr.layout.ConversionPattern = %d %-10.10r [%10.10t] %-6.6p %40.40c %x - %m\n
-
-log4j.category.example = info
-    """)
-
 def run(args):
     call("javac", "-cp", CLASSPATH, "ldap.java")
     call(*tuple(["java", "-cp", CLASSPATH,
-                 "-Dlog4j.configuration=ldap.properties", "ldap"] + args))
+                 "ldap"] + args))
 
 def clean_files():
-    for x in ("ldap.java", "ldap.properties", "ldap.xml"):
+    for x in ("ldap.java", "ldap.xml"):
         if os.path.exists(x):
             os.remove(x)
 
@@ -166,4 +155,3 @@ if __name__ == "__main__":
         run(sys.argv[1:])
     finally:
         clean_files()
-
