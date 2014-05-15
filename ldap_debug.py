@@ -1,32 +1,72 @@
-#!/bin/bash
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-(
+#
+# Copyright (C) 2014 Glencoe Software, Inc. All Rights Reserved.
+# Use is subject to license terms supplied in LICENSE.txt
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program; if not, write to the Free Software Foundation, Inc.,
+# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-set -e
-set -u
+"""
+Script to test an OMERO LDAP Connection by
+writing a Java class and compiling it.
+"""
 
 
-export CLASSPATH=.:`echo lib/server/*.jar | sed 's/ /:/g'`
-cat > ldap.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
+import os
+import sys
+import glob
+import subprocess
+
+def call(*args):
+    if subprocess.call(list(args)):
+        raise Exception(" ".join(args))
+
+
+dir = os.environ.get("OMERO_HOME", ".")
+dir = os.path.abspath(dir)
+dir = os.path.join(dir, "lib", "server")
+jars = os.path.join(dir, "*.jar")
+CLASSPATH = ["."]
+CLASSPATH += glob.glob(jars)
+if len(CLASSPATH) == 1:
+    raise Exception("No jars found. Set OMERO_HOME or cd to OMERO")
+CLASSPATH = os.path.pathsep.join(CLASSPATH)
+
+
+def write_files():
+    with open("ldap.xml", "w") as f:
+        f.write("""<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-   <bean id="ldapConfig" class="ome.security.auth.LdapConfig">
-      <constructor-arg index="0" value="true"/>
-      <constructor-arg index="1" value=":attribute:memberOf"/>
-      <constructor-arg index="2" value="(objectClass=person)"/>
-      <constructor-arg index="3" value="(&amp;(objectClass=group)(mail=omero.flag))"/>
-      <constructor-arg index="4" value="omeName=cn,firstName=givenName,lastName=sn,email=mail"/>
-      <constructor-arg index="5" value="name=cn"/>
+<bean id="ldapConfig" class="ome.security.auth.LdapConfig">
+    <constructor-arg index="0" value="true"/>
+    <constructor-arg index="1" value=":attribute:memberOf"/>
+    <constructor-arg index="2" value="(objectClass=person)"/>
+    <constructor-arg index="3" value="(&amp;(objectClass=group)(mail=omero.flag))"/>
+    <constructor-arg index="4" value="omeName=cn,firstName=givenName,lastName=sn,email=mail"/>
+    <constructor-arg index="5" value="name=cn"/>
     </bean>
 
     <bean id="defaultContextSource"
         class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <constructor-arg value="ldaps://bioch-ad3.bioch.ox.ac.uk:3269"/>
-        <property name="userDn" value="cn=omerolookup,ou=Service Accounts,dc=bioch,dc=ox,dc=ac,dc=uk"/>
+        <constructor-arg value="ldaps://localhost:369"/>
+        <property name="userDn" value="jamoore"/>
         <property name="password" value="$1"/>
-        <property name="base" value="dc=bioch,dc=ox,dc=ac,dc=uk"/>
+        <property name="base" value="ou=lifesci,o=dundee"/>
         <property name="dirObjectFactory"
             value="org.springframework.ldap.core.support.DefaultDirObjectFactory" />
         <!-- http://forum.springsource.org/showthread.php?58963-Setting-java-naming-referral-using-namespace-configuration -->
@@ -39,26 +79,17 @@ cat > ldap.xml <<EOF
         </property>
     </bean>
 
-    <bean id="keystore" class="ome.security.KeyAndTrustStoreConfiguration" lazy-init="false">
-      <description>Sets the keystore and truststore System properties on start-up</description>
-      <property name="keyStore" value="/home/dpwrussell/keys/keystore-empty.jks"/>
-      <property name="keyStorePassword" value="changeit"/>
-      <property name="trustStore" value="/home/dpwrussell/keys/keystore.jks"/>
-      <property name="trustStorePassword" value="changeit"/>
-    </bean>
-
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <constructor-arg ref="defaultContextSource" />
     </bean>
 
-</beans>
-EOF
+</beans>""")
 
-cat > ldap.java <<EOF
-/*
- *   Copyright 2011 Glencoe Software, Inc. All rights reserved.
- *   Use is subject to license terms supplied in LICENSE.txt
- */
+    with open("ldap.java", "w") as f:
+        f.write("""/*
+*   Copyright 2011 Glencoe Software, Inc. All rights reserved.
+*   Use is subject to license terms supplied in LICENSE.txt
+*/
 
 import java.util.Arrays;
 import java.util.List;
@@ -99,15 +130,15 @@ public class ldap {
             System.out.println("Nothing found!");
         }
 
-	String grpFilter = config.getGroupFilter().encode();
-	GroupAttributeMapper mapper = new GroupAttributeMapper(config);
-	List<String> filteredNames = (List<String>) template.search("", grpFilter, mapper);
-	System.out.println("Groups:" + filteredNames);
+        String grpFilter = config.getGroupFilter().encode();
+        GroupAttributeMapper mapper = new GroupAttributeMapper(config);
+        List<String> filteredNames = (List<String>) template.search("", grpFilter, mapper);
+        System.out.println("Groups:" + filteredNames);
     }
-}
-EOF
+}""")
 
-cat > ldap.properties <<EOF
+    with open("ldap.properties", "w") as f:
+        f.write("""
 log4j.rootCategory=trace, stderr
 log4j.appender.stderr=org.apache.log4j.ConsoleAppender
 log4j.appender.stderr.target=System.err
@@ -115,14 +146,25 @@ log4j.appender.stderr.layout=org.apache.log4j.PatternLayout
 log4j.appender.stderr.layout.ConversionPattern = %d %-10.10r [%10.10t] %-6.6p %40.40c %x - %m\n
 
 log4j.category.example = info
-EOF
+    """)
 
-javac ldap.java
-java -Dlog4j.configuration=ldap.properties ldap "$@"
+def run(args):
+    call("javac", "-cp", CLASSPATH, "ldap.java")
+    call(*tuple(["java", "-cp", CLASSPATH,
+                 "-Dlog4j.configuration=ldap.properties", "ldap"] + args))
 
-)
+def clean_files():
+    for x in ("ldap.java", "ldap.properties", "ldap.xml"):
+        if os.path.exists(x):
+            os.remove(x)
 
-rm -f ldap.java
-rm -f ldap*.class
-rm -f ldap.properties
-rm -f ldap.xml
+    for x in glob.glob("ldap*.class"):
+        os.remove(x)
+
+if __name__ == "__main__":
+    try:
+        write_files()
+        run(sys.argv[1:])
+    finally:
+        clean_files()
+
