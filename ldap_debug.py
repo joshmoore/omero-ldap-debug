@@ -63,9 +63,7 @@ def write_files():
 
     <bean id="defaultContextSource"
         class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-        <constructor-arg value="ldaps://localhost:369"/>
-        <property name="userDn" value="jamoore"/>
-        <property name="password" value="$1"/>
+        <constructor-arg value="ldap://ldap.lifesci.dundee.ac.uk:389"/>
         <property name="base" value="ou=lifesci,o=dundee"/>
         <property name="dirObjectFactory"
             value="org.springframework.ldap.core.support.DefaultDirObjectFactory" />
@@ -116,18 +114,19 @@ public class ldap {
         LdapConfig config = ctx.getBean(LdapConfig.class);
         LdapTemplate template = ctx.getBean(LdapTemplate.class);
 
-        String USER = "omerotest";
-        System.out.println("Looking for user: " + USER);
-        List<String> results = (List<String>)
-        template.search("", config.usernameFilter(USER).encode(),
-            new ContextMapper(){
-                public Object mapFromContext(Object arg0) {
-                    DirContextAdapter ctx = (DirContextAdapter) arg0;
-                    System.out.println(ctx.getNameInNamespace());
-                    return ctx.getNameInNamespace();
-                }});
-        if (results == null || results.size() == 0) {
-            System.out.println("Nothing found!");
+        for (String arg : args) {
+            System.out.println("Looking for user: " + arg);
+            List<String> results = (List<String>)
+            template.search("", config.usernameFilter(arg).encode(),
+                new ContextMapper(){
+                    public Object mapFromContext(Object arg0) {
+                        DirContextAdapter ctx = (DirContextAdapter) arg0;
+                        System.out.println(ctx.getNameInNamespace());
+                        return ctx.getNameInNamespace();
+                    }});
+            if (results == null || results.size() == 0) {
+                System.out.println("Nothing found!");
+            }
         }
 
         String grpFilter = config.getGroupFilter().encode();
