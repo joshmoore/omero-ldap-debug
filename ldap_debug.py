@@ -102,9 +102,16 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.ldap.core.*;
 import org.springframework.ldap.core.support.*;
 
+import ch.qos.logback.classic.Level;
+
 public class ldap {
 
+    static ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger)
+        org.slf4j.LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
+
     public static void main(String[] args) throws Exception {
+
+        root.setLevel(Level.INFO);
 
         // Configuration (from XML above)
         FileSystemXmlApplicationContext ctx =
