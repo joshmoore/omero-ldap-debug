@@ -54,9 +54,9 @@ def write_files():
 
 <bean id="ldapConfig" class="ome.security.auth.LdapConfig">
     <constructor-arg index="0" value="true"/>
-    <constructor-arg index="1" value=":attribute:memberOf"/>
+    <constructor-arg index="1" value=":query:(memberUid=@{cn})"/>
     <constructor-arg index="2" value="(objectClass=person)"/>
-    <constructor-arg index="3" value="(&amp;(objectClass=group)(mail=omero.flag))"/>
+    <constructor-arg index="3" value="(objectClass=posixgroup)"/>
     <constructor-arg index="4" value="omeName=cn,firstName=givenName,lastName=sn,email=mail"/>
     <constructor-arg index="5" value="name=cn"/>
     </bean>
@@ -77,6 +77,14 @@ def write_files():
         </property>
     </bean>
 
+    <bean name="ldap" class="MockLdapImpl">
+        <constructor-arg ref="defaultContextSource"/>
+        <constructor-arg ref="ldapTemplate"/>
+        <constructor-arg><bean class="ome.system.Roles"/></constructor-arg>
+        <constructor-arg ref="ldapConfig" />
+        <constructor-arg><bean class="MockRoleProvider"/></constructor-arg>
+    </bean>
+
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <constructor-arg ref="defaultContextSource" />
     </bean>
@@ -95,15 +103,140 @@ import java.util.List;
 import javax.naming.NamingException;
 import javax.naming.directory.SearchControls;
 
+import ome.conditions.ApiUsageException;
+
+import ome.logic.LdapImpl;
+
+import ome.model.meta.Experimenter;
+import ome.model.meta.ExperimenterGroup;
+import ome.model.internal.Permissions;
+
+import ome.security.auth.AttributeSet;
 import ome.security.auth.GroupAttributeMapper;
+import ome.security.auth.PersonContextMapper;
+import ome.security.auth.RoleProvider;
+import ome.security.auth.QueryNewUserGroupBean;
 import ome.security.auth.LdapConfig;
 
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import ome.system.OmeroContext;
+import ome.system.Roles;
+
 import org.springframework.ldap.core.*;
 import org.springframework.ldap.core.support.*;
+import org.springframework.ldap.filter.Filter;
 
 import ch.qos.logback.classic.Level;
 
+@SuppressWarnings("unchecked")
+class MockLdapImpl extends LdapImpl {
+
+    ContextSource ctx;
+    LdapConfig config;
+    LdapOperations ldap;
+    RoleProvider provider;
+    public MockLdapImpl(ContextSource ctx, LdapOperations ldap, Roles roles,
+            LdapConfig config, RoleProvider roleProvider) {
+        super(ctx, ldap, roles, config, roleProvider, null);
+        this.ctx = ctx;
+        this.ldap = ldap;
+        this.config = config;
+        this.provider = roleProvider;
+    }
+
+    public AttributeSet getAttributeSet(String username, String data) {
+        // Copied, since all private
+
+        // getBase
+        String base = null;
+        try {
+            base = ctx.getReadOnlyContext().getNameInNamespace();
+        } catch (NamingException e) {
+            throw new ApiUsageException(
+                    "Cannot get BASE from ContextSource. Naming exception! "
+                            + e.toString());
+        }
+
+        // getPersonContextMapper
+        PersonContextMapper mapper = new PersonContextMapper(config, base);
+
+        // mapUserName
+        Filter filter = config.usernameFilter(username);
+        List<Experimenter> p = ldap.search("", filter.encode(),
+                mapper.getControls(), mapper);
+
+        Experimenter exp = null;
+        if (p.size() == 1 && p.get(0) != null) {
+            Experimenter e = p.get(0);
+            if (provider.isIgnoreCaseLookup()) {
+                if (e.getOmeName().equalsIgnoreCase(username)) {
+                    exp = p.get(0);
+                }
+            } else {
+                if (e.getOmeName().equals(username)) {
+                    exp = p.get(0);
+                }
+            }
+        }
+        if (exp == null) {
+            throw new ApiUsageException(
+                "Cannot find unique user DistinguishedName: found=" + p.size());
+        }
+
+        // getAttributeSet
+        String dn = mapper.getDn(exp);
+        AttributeSet attrSet = mapper.getAttributeSet(exp);
+        attrSet.put("dn", dn); // For queries
+        return attrSet;
+    }
+
+}
+
+class MockRoleProvider implements ome.security.auth.RoleProvider {
+
+    public String nameById(long id) {
+        return null;
+    }
+
+    public long createGroup(ExperimenterGroup group) {
+        return -1;
+    }
+
+    public long createGroup(String name, Permissions perms, boolean strict){
+        return -1;
+    }
+
+    public long createGroup(String name, Permissions perms, boolean strict,
+            boolean isLdap) {
+        System.out.println("Group: " + name);
+        return -1;
+    }
+
+    public long createExperimenter(Experimenter experimenter,
+            ExperimenterGroup defaultGroup, ExperimenterGroup... otherGroups) {
+        return -1;
+    }
+
+    public void setDefaultGroup(final Experimenter user, final ExperimenterGroup group) {
+    }
+
+    public void setGroupOwner(final Experimenter user, final ExperimenterGroup group,
+            final boolean value) {
+    }
+
+    public void addGroups(final Experimenter user, final ExperimenterGroup... groups) {
+    }
+
+    public void removeGroups(final Experimenter user,
+            final ExperimenterGroup... groups) {
+    }
+
+    public boolean isIgnoreCaseLookup() {
+        return false;
+    }
+
+}
+
+@SuppressWarnings("unchecked")
 public class ldap {
 
     static ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger)
@@ -111,24 +244,30 @@ public class ldap {
 
     public static void main(String[] args) throws Exception {
 
-        root.setLevel(Level.INFO);
+        root.setLevel(Level.WARN);
 
         // Configuration (from XML above)
-        FileSystemXmlApplicationContext ctx =
-                new FileSystemXmlApplicationContext(new String[]{"classpath:ldap.xml"});
+        OmeroContext ctx = new OmeroContext(new String[]{"classpath:ldap.xml"});
 
         // Objects we need to use.
+        MockLdapImpl ldap = ctx.getBean(MockLdapImpl.class);
         LdapConfig config = ctx.getBean(LdapConfig.class);
         LdapTemplate template = ctx.getBean(LdapTemplate.class);
+        String query = config.getNewUserGroup().substring(7);
 
-        for (String arg : args) {
+        for (final String arg : args) {
             System.out.println("Looking for user: " + arg);
             List<String> results = (List<String>)
             template.search("", config.usernameFilter(arg).encode(),
                 new ContextMapper(){
                     public Object mapFromContext(Object arg0) {
                         DirContextAdapter ctx = (DirContextAdapter) arg0;
-                        System.out.println(ctx.getNameInNamespace());
+                        String dn = ctx.getNameInNamespace();
+                        System.out.println("dn=" + dn);
+                        System.out.println("groupSpec=" + query);
+                        QueryNewUserGroupBean bean = new QueryNewUserGroupBean(query);
+                        AttributeSet attr = ldap.getAttributeSet(arg, query);
+                        bean.groups(arg, config, template, new MockRoleProvider(), attr);
                         return ctx.getNameInNamespace();
                     }});
             if (results == null || results.size() == 0) {
@@ -136,15 +275,15 @@ public class ldap {
             }
         }
 
-        String grpFilter = config.getGroupFilter().encode();
-        GroupAttributeMapper mapper = new GroupAttributeMapper(config);
-        List<String> filteredNames = (List<String>) template.search("", grpFilter, mapper);
-        System.out.println("Groups:" + filteredNames);
+        //String grpFilter = config.getGroupFilter().encode();
+        //GroupAttributeMapper mapper = new GroupAttributeMapper(config);
+        //List<String> filteredNames = (List<String>) template.search("", grpFilter, mapper);
+        //System.out.println("Groups:" + filteredNames);
     }
 }""")
 
 def run(args):
-    call("javac", "-cp", CLASSPATH, "ldap.java")
+    call("javac", "-Xlint:unchecked", "-cp", CLASSPATH, "ldap.java")
     call(*tuple(["java", "-cp", CLASSPATH,
                  "ldap"] + args))
 
